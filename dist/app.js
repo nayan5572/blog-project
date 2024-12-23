@@ -24,7 +24,7 @@ app.use((0, cors_1.default)({ origin: ["http://localhost:5000"] }));
 // application routes
 // app.use("/api/v1", router);
 const test = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send("Server Running");
+    res.send("Blog Server is Running");
     Promise.reject();
 });
 app.get("/", test);
