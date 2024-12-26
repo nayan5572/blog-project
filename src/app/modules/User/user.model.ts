@@ -1,32 +1,46 @@
 import { model, Schema } from "mongoose";
-import { TUser } from "./user.interface";
 import isEmail from "validator/lib/isEmail";
-
-const UserSchema = new Schema<TUser>(
+import bcrypt from "bcrypt";
+import { Tuser } from "./user.interface";
+const userModelSchema = new Schema<Tuser>(
   {
-    id: { type: String },
     name: {
-      firstName: { type: String, required: true },
-      middleName: { type: String },
-      lastName: { type: String, required: true },
+      type: String,
+      required: true,
     },
     email: {
       type: String,
+      unique: true,
       trim: true,
       required: true,
-      unique: true,
       validate: {
         validator: (value: string) => isEmail(value),
         message: "{VALUE} is not a valid email!",
       },
     },
-    password: { type: String, required: true, minlength: 6, maxlength: 20 },
-    role: { type: String, enum: ["admin", "user"], default: "user" },
-    isBlocked: { type: Boolean, default: false },
+    password: {
+      type: String,
+      required: true,
+    },
+    isBlocked: {
+      type: Boolean,
+      default: false,
+    },
+    role: {
+      type: String,
+      enum: ["admin", "user"],
+      default: "user",
+    },
   },
   {
     timestamps: true,
   }
 );
 
-export const User = model<TUser>("User", UserSchema);
+userModelSchema.pre("save", async function () {
+  const slatRound = 12;
+  const hashPassword = await bcrypt.hash(this.password, slatRound);
+  this.password = hashPassword;
+});
+
+export const User = model<Tuser>("User", userModelSchema);

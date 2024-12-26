@@ -1,11 +1,11 @@
 import { z } from "zod";
 
-const blogUpdateValidation = z.object({
+const blogUpdateValidationSchema = z.object({
   body: z.object({
+    author: z.string().optional(),
     title: z.string().optional(),
     content: z.string().optional(),
-    author: z.string().optional(),
   }),
 });
 
-export default blogUpdateValidation;
+export default blogUpdateValidationSchema;

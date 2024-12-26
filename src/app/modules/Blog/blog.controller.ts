@@ -1,69 +1,57 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { NextFunction, Request, Response } from "express";
-import catchAsync from "../../utils/catchAsync";
-import { blogService } from "./blog.service";
-import sendResponse from "../../utils/sendResponse";
 import { HttpStatus } from "http-status-ts";
+import CatchAsync from "../../utils/CatchAsync";
+import sendResponce from "../../utils/SendResponce";
+import { blogService } from "./blog.service";
 
-// create blog
-const createBlog = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const result = await blogService.createBlogService(req.body);
-    sendResponse(res, {
-      statusCode: HttpStatus.CREATED,
-      success: true,
-      message: "Blog Created Successfully",
-      data: result,
-    });
-  }
-);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+const createBlogController = CatchAsync(async (req, res, next) => {
+  const result = await blogService.createBlogService(req.body);
+  sendResponce(res, {
+    statusCode: HttpStatus.CREATED,
+    success: true,
+    message: "Blog created successfully",
+    data: result,
+  });
+});
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+const getAllBlogController = CatchAsync(async (req, res, next) => {
+  const result = await blogService.getAllBlogService(req.query);
+  sendResponce(res, {
+    statusCode: HttpStatus.OK,
+    success: true,
+    message: "Blogs fetched successfully",
+    data: result,
+  });
+});
 
-// get all blogs
-const getAllBlog = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const result = await blogService.getAllBlogService(req.body);
-    sendResponse(res, {
-      statusCode: HttpStatus.OK,
-      success: true,
-      message: "Blogs fetched successfully",
-      data: result,
-    });
-  }
-);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+const updateBlogController = CatchAsync(async (req, res, next) => {
+  const id = req.params.id;
+  const payload = req.body;
+  const result = await blogService.updateBlogService(id, payload);
+  sendResponce(res, {
+    statusCode: HttpStatus.OK,
+    success: true,
+    message: "Blog updated successfully",
+    data: result,
+  });
+});
 
-// update blog
-const updateBlog = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const id = req.params.id;
-    const payload = req.body;
-    const result = await blogService.updateBlogService(id, payload);
-    sendResponse(res, {
-      statusCode: HttpStatus.OK,
-      success: true,
-      message: "Blog Update Successfully",
-      data: result,
-    });
-  }
-);
-
-// delete blog
-const deleteBlog = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const id = req.params.id;
-    const result = await blogService.deleteBlogService(id);
-    sendResponse(res, {
-      statusCode: HttpStatus.OK,
-      success: true,
-      message: "Blog deleted successfully",
-      data: result,
-    });
-  }
-);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+const deleteBlogController = CatchAsync(async (req, res, next) => {
+  const id = req.params.id;
+  const result = await blogService.deleteBlogService(id);
+  sendResponce(res, {
+    statusCode: HttpStatus.OK,
+    success: true,
+    message: "Blog deleted successfully",
+    data: result,
+  });
+});
 
 export const blogController = {
-  createBlog,
-  getAllBlog,
-  updateBlog,
-  deleteBlog,
+  createBlogController,
+  getAllBlogController,
+  updateBlogController,
+  deleteBlogController,
 };

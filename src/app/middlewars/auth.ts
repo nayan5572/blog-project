@@ -1,27 +1,42 @@
-import { ROLE } from "../modules/User/user.constant";
 import { NextFunction, Request, Response } from "express";
-import AppError from "../error/AppError";
-import { HttpStatus } from "http-status-ts";
-import catchAsync from "../utils/catchAsync";
-import jwt, { JwtPayload } from "jsonwebtoken";
-import config from "../config";
+// import { JwtPayload } from "jsonwebtoken";
 
-const auth = (...requiredRole: ROLE[]) => {
-  return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+declare module "express-serve-static-core" {
+  interface Request {
+    user?: JwtPayload;
+  }
+}
+import config from "../config";
+import { HttpStatus } from "http-status-ts";
+import App__error from "../error/App__Error";
+import { JwtPayload } from "jsonwebtoken";
+import CatchAsync from "../utils/CatchAsync";
+import { ROLE__TYPE } from "../modules/User/user.roleType";
+import jwt from "jsonwebtoken";
+
+const auth = (...requiredRole: ROLE__TYPE[]) => {
+  return CatchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
     if (!token) {
-      throw new AppError(HttpStatus.UNAUTHORIZED, "You are not UnAuthorized");
+      throw new App__error(HttpStatus.UNAUTHORIZED, "you are not UnAuthorized");
     }
     jwt.verify(
       token,
-      config.jwt_access_secret as string,
-      function (err, decoded) {
+      config.jwt__access__token__secret as string,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      function (err: any, decoded: any) {
         if (err) {
-          throw new AppError(HttpStatus.UNAUTHORIZED, "you are not authorized");
+          throw new App__error(
+            HttpStatus.UNAUTHORIZED,
+            "You are not Authorized"
+          );
         }
-        const decodeValue = (decoded as JwtPayload)?.role;
-        if (requiredRole && !requiredRole.includes(decodeValue)) {
-          throw new AppError(HttpStatus.UNAUTHORIZED, "you are not authorized");
+        const decodedValue = (decoded as JwtPayload)?.role;
+        if (requiredRole && !requiredRole.includes(decodedValue)) {
+          throw new App__error(
+            HttpStatus.UNAUTHORIZED,
+            "You are not unAuthorized"
+          );
         }
         req.user = decoded as JwtPayload;
         next();

@@ -1,39 +1,31 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { NextFunction, Request, Response } from "express";
-import catchAsync from "../../utils/catchAsync";
-import { AdminService } from "./admin.service";
-import sendResponse from "../../utils/sendResponse";
+/* eslint-disable no-unused-vars */
 import { HttpStatus } from "http-status-ts";
+import CatchAsync from "../../utils/CatchAsync";
+import sendResponce from "../../utils/SendResponce";
+import { AdminService } from "./admin.service";
 
-// user block
-const blockUserController = catchAsync(
-  // eslint-disable-next-line no-unused-vars
-  async (req: Request, res: Response, next: NextFunction) => {
-    const result = await AdminService.blockUserService(req.params.id);
-    sendResponse(res, {
-      statusCode: HttpStatus.OK,
-      success: true,
-      message: "User Blocked Successfully",
-      data: result,
-    });
-  }
-);
-
-// delete user block
-const deleteUserBlockController = catchAsync(
-  // eslint-disable-next-line no-unused-vars
-  async (req: Request, res: Response, next: NextFunction) => {
-    const result = await AdminService.deleteUserBlogServices(req.params.id);
-    sendResponse(res, {
-      statusCode: HttpStatus.OK,
-      success: true,
-      message: "Blog deleted successfully",
-      data: result,
-    });
-  }
-);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const blockUserController = CatchAsync(async (req, res, next) => {
+  const result = await AdminService.blockUserService(req.params.id);
+  sendResponce(res, {
+    statusCode: HttpStatus.OK,
+    success: true,
+    message: "User blocked successfully",
+    data: result,
+  });
+});
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const deleteUserBlogController = CatchAsync(async (req, res, next) => {
+  const result = await AdminService.deleteUserBlogService(req.params.id);
+  sendResponce(res, {
+    statusCode: HttpStatus.OK,
+    success: true,
+    message: "Blog deleted successfully",
+    data: result,
+  });
+});
 
 export const AdminController = {
   blockUserController,
-  deleteUserBlockController,
+  deleteUserBlogController,
 };

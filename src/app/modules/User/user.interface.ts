@@ -1,16 +1,7 @@
-export type TUserName = {
-  firstName: string;
-  middleName?: string;
-  lastName: string;
-};
-
-export interface TUser {
-  id: string;
-  name: TUserName;
+export type Tuser = {
+  name: string;
   email: string;
   password: string;
-  role: "admin" | "user";
+  role: "user" | "admin";
   isBlocked: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-}
+};

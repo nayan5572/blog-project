@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
-import { TBlog } from "./blog.interface";
+import { Tblog } from "./blog.interface";
 
-const blogSchema = new Schema<TBlog>({
+const blogSchema = new Schema<Tblog>({
   author: {
     type: Schema.Types.ObjectId,
     ref: "User",
@@ -15,6 +15,11 @@ const blogSchema = new Schema<TBlog>({
     type: String,
     required: true,
   },
+  isPublished: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-export const blogModel = model<TBlog>("Blog", blogSchema);
+// The model name should start with an uppercase letter to follow conventions
+export const Blog = model<Tblog>("Blog", blogSchema);

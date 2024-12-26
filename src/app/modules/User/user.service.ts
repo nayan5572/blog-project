@@ -1,20 +1,21 @@
-import { TUser } from "./user.interface";
-import AppError from "../../error/AppError";
-import { HttpStatus } from "http-status-ts";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+import httpStatus from "http-status";
+import App__error from "../../Error/App__Error";
+import { Tuser } from "./user.interface";
 import { User } from "./user.model";
 
-// Function to create a User
-export const createUserIntoDB = async (payload: TUser) => {
-  const isUserExit = await User.findOne({ email: payload.email });
-
-  if (isUserExit) {
-    throw new AppError(HttpStatus.BAD_REQUEST, "This User is already exists");
+const createUserService = async (payload: Tuser) => {
+  // Check if user already exists
+  const isUserExist = await User.findOne({ email: payload.email });
+  if (isUserExist) {
+    throw new App__error(httpStatus.BAD_REQUEST, "This user already exists!");
   }
 
-  // create user
+  // Create the user
   const newUser = await User.create(payload);
 
-  // convert document to object & remove senitive fields
+  // Convert document to object and remove sensitive fields
   const result = newUser.toObject();
   delete result.password;
   delete result.role;
@@ -24,5 +25,5 @@ export const createUserIntoDB = async (payload: TUser) => {
 };
 
 export const UserService = {
-  createUserIntoDB,
+  createUserService,
 };

@@ -1,27 +1,23 @@
-import express, { Application, Request, Response } from "express";
 import cors from "cors";
-import globalErrorHandler from "./app/middlewars/globalErrorHandler";
-import notFound from "./app/middlewars/notFound";
+import express, { Application, Request, Response } from "express";
+import globalErrorHandler from "./app/error/global__Error";
+import notFound from "./app/error/not__found";
+import router from "./app/routes";
 
 const app: Application = express();
 
-// parsers
+// parser
 app.use(express.json());
-// app.use(cookieParser());
-app.use(cors({ origin: ["http://localhost:5000"] }));
+app.use(cors());
 
-// application routes
-// app.use("/api/v1", router);
+// router
+app.use("/api", router);
 
-const test = async (req: Request, res: Response) => {
-  res.send("Blog Server is Running");
-  Promise.reject();
-};
-app.get("/", test);
+app.get("/", (req: Request, res: Response) => {
+  res.send("server is running ...!");
+});
 
 app.use(globalErrorHandler);
-
-// not found
 app.use(notFound);
 
 export default app;

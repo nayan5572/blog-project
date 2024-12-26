@@ -9,7 +9,7 @@ const handleDuplicateError = (err) => {
             message: `${extractedMessage} is already exists`,
         },
     ];
-    const statusCode = 4000;
+    const statusCode = 8000;
     return {
         statusCode,
         message: "Invalid ID",

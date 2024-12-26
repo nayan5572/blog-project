@@ -8,7 +8,7 @@ const handleZodError = (err) => {
             message: issue.message,
         };
     });
-    const statusCode = 4000;
+    const statusCode = 8000;
     return {
         statusCode,
         message: "Validation Error",

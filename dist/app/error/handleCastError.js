@@ -7,7 +7,7 @@ const handleCastError = (err) => {
             message: err.message,
         },
     ];
-    const statusCode = 4000;
+    const statusCode = 8000;
     return {
         statusCode,
         message: "Invalid ID",
