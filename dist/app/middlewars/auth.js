@@ -12,28 +12,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const config_1 = __importDefault(require("../config"));
-const http_status_ts_1 = require("http-status-ts");
-const App__Error_1 = __importDefault(require("../error/App__Error"));
-const CatchAsync_1 = __importDefault(require("../utils/CatchAsync"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const config_1 = __importDefault(require("../config"));
+const CatchAsync_1 = __importDefault(require("../utils/CatchAsync"));
+const App__Error_1 = __importDefault(require("../error/App__Error"));
+const http_status_ts_1 = require("http-status-ts");
 const auth = (...requiredRole) => {
     return (0, CatchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        const token = req.headers.authorization;
-        if (!token) {
-            throw new App__Error_1.default(http_status_ts_1.HttpStatus.UNAUTHORIZED, "you are not UnAuthorized");
+        const Bearertoken = req.headers.authorization;
+        console.log("Bearer Token", Bearertoken);
+        if (!Bearertoken) {
+            throw new App__Error_1.default(http_status_ts_1.HttpStatus.UNAUTHORIZED, "unAuthorized");
         }
-        jsonwebtoken_1.default.verify(token, config_1.default.jwt_access_secret, 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        function (err, decoded) {
+        const token = Bearertoken.split(" ")[1];
+        jsonwebtoken_1.default.verify(token, config_1.default.jwt__access__token__secret, function (err, decoded) {
             if (err) {
-                throw new App__Error_1.default(http_status_ts_1.HttpStatus.UNAUTHORIZED, "You are not Authorized");
+                throw new App__Error_1.default(http_status_ts_1.HttpStatus.UNAUTHORIZED, "authorized");
             }
             const decodedValue = decoded === null || decoded === void 0 ? void 0 : decoded.role;
             if (requiredRole && !requiredRole.includes(decodedValue)) {
-                throw new App__Error_1.default(http_status_ts_1.HttpStatus.UNAUTHORIZED, "You are not unAuthorized");
+                throw new App__Error_1.default(http_status_ts_1.HttpStatus.UNAUTHORIZED, "Unauthorized");
             }
-            // req.user = decoded as JwtPayload;
+            req.user = decoded;
             next();
         });
     }));

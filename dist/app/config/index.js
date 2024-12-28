@@ -11,5 +11,6 @@ exports.default = {
     node__env: process.env.NODE_ENV,
     port: process.env.PORT,
     database_url: process.env.DATABASE_URL,
-    jwt_access_secret: process.env.JWT_ACCESS_SECRET,
+    jwt__access__token__secret: process.env.JWT__ACCESS__SECRET__TOKEN,
+    jwt__refresh__token__secret: process.env.JWT__REFRESH__SECRET__TOKEN,
 };

@@ -15,16 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userController = void 0;
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// import CatchAsync from "../../utils/CatchAsync";
 const CatchAsync_1 = __importDefault(require("../../utils/CatchAsync"));
 const SendResponce_1 = __importDefault(require("../../utils/SendResponce"));
 const user_service_1 = require("./user.service");
-// import { UserService } from "./userService";
+const http_status_1 = __importDefault(require("http-status"));
 const usersController = (0, CatchAsync_1.default)((req, res, _next) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield user_service_1.UserService.createUserService(req.body);
     (0, SendResponce_1.default)(res, {
-        statusCode: 201,
-        success: false,
+        statusCode: http_status_1.default.OK,
+        success: true,
         message: "User registered successfully",
         data: result,
     });

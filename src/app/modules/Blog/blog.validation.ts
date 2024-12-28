@@ -1,10 +1,10 @@
 import { z } from "zod";
 
-// Define the blog schema
 const blogSchema = z.object({
   body: z.object({
-    title: z.string().nonempty("Title is required"),
-    content: z.string().nonempty("Content is required"),
+    author: z.string(),
+    title: z.string(),
+    content: z.string(),
   }),
 });
 

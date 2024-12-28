@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const admin_router_1 = require("../modules/Admin/admin.router");
-const blog_router_1 = require("../modules/Blog/blog.router");
 const user_router_1 = require("../modules/User/user.router");
+const blog_router_1 = require("../modules/blog/blog.router");
+const admin_router_1 = require("../modules/Admin/admin.router");
 const router = (0, express_1.Router)();
 const blogWebsiteRouter = [
     {

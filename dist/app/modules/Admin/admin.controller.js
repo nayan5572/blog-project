@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminController = void 0;
 /* eslint-disable no-unused-vars */
-const http_status_1 = __importDefault(require("http-status"));
+const http_status_ts_1 = require("http-status-ts");
 const CatchAsync_1 = __importDefault(require("../../utils/CatchAsync"));
 const SendResponce_1 = __importDefault(require("../../utils/SendResponce"));
 const admin_service_1 = require("./admin.service");
@@ -22,7 +22,7 @@ const admin_service_1 = require("./admin.service");
 const blockUserController = (0, CatchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield admin_service_1.AdminService.blockUserService(req.params.id);
     (0, SendResponce_1.default)(res, {
-        statusCode: http_status_1.default.OK,
+        statusCode: http_status_ts_1.HttpStatus.OK,
         success: true,
         message: "User blocked successfully",
         data: result,
@@ -32,7 +32,7 @@ const blockUserController = (0, CatchAsync_1.default)((req, res, next) => __awai
 const deleteUserBlogController = (0, CatchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield admin_service_1.AdminService.deleteUserBlogService(req.params.id);
     (0, SendResponce_1.default)(res, {
-        statusCode: http_status_1.default.OK,
+        statusCode: http_status_ts_1.HttpStatus.OK,
         success: true,
         message: "Blog deleted successfully",
         data: result,

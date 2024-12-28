@@ -1,25 +1,30 @@
 import { model, Schema } from "mongoose";
 import { Tblog } from "./blog.interface";
 
-const blogSchema = new Schema<Tblog>({
-  author: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
+const blogSchema = new Schema<Tblog>(
+  {
+    author: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    content: {
+      type: String,
+      required: true,
+    },
+    isPublished: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
-  title: {
-    type: String,
-    required: true,
-  },
-  content: {
-    type: String,
-    required: true,
-  },
-  isPublished: {
-    type: Boolean,
-    default: false,
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
-// The model name should start with an uppercase letter to follow conventions
-export const Blog = model<Tblog>("Blog", blogSchema);
+export const Blog = model<Tblog>("blog", blogSchema);

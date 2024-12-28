@@ -34,8 +34,6 @@ const userModelSchema = new mongoose_1.Schema({
     password: {
         type: String,
         required: true,
-        minlength: 6,
-        maxlength: 20,
     },
     isBlocked: {
         type: Boolean,

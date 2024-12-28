@@ -1,7 +1,7 @@
 import { HttpStatus } from "http-status-ts";
 import { User } from "../User/user.model";
 import App__error from "../../error/App__Error";
-import { Blog } from "../Blog/blog.model";
+import { Blog } from "../blog/blog.model";
 
 const blockUserService = async (id: string) => {
   const isExistUser = await User.findById(id);

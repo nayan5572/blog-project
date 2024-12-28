@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { adminRouter } from "../modules/Admin/admin.router";
-import { blogRouter } from "../modules/Blog/blog.router";
 import { userRouter } from "../modules/User/user.router";
+import { blogRouter } from "../modules/blog/blog.router";
+import { adminRouter } from "../modules/Admin/admin.router";
 
 const router = Router();
 
