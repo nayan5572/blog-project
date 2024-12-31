@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.authService = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const http_status_ts_1 = require("http-status-ts");
+const http_status_1 = __importDefault(require("http-status"));
 const App__Error_1 = __importDefault(require("../../error/App__Error"));
 const user_model_1 = require("../User/user.model");
 const config_1 = __importDefault(require("../../config"));
@@ -23,17 +23,17 @@ const loginService = (payload) => __awaiter(void 0, void 0, void 0, function* ()
     const user = yield user_model_1.User.findOne({ email: payload.email });
     // Check if the user exists
     if (!user) {
-        throw new App__Error_1.default(http_status_ts_1.HttpStatus.UNAUTHORIZED, "not found.");
+        throw new App__Error_1.default(http_status_1.default.UNAUTHORIZED, "not found.");
     }
     // Check if the user account is blocked
     if (user.isBlocked === true) {
-        throw new App__Error_1.default(http_status_ts_1.HttpStatus.FORBIDDEN, "This user account is currently blocked!");
+        throw new App__Error_1.default(http_status_1.default.FORBIDDEN, "This user account is currently blocked!");
     }
     const plainPassword = payload.password;
     const userHashPassword = user.password;
     const isPasswordValid = yield bcrypt_1.default.compare(plainPassword, userHashPassword);
     if (!isPasswordValid) {
-        throw new App__Error_1.default(http_status_ts_1.HttpStatus.UNAUTHORIZED, "Invalid credentials.");
+        throw new App__Error_1.default(http_status_1.default.UNAUTHORIZED, "Invalid credentials.");
     }
     const jwtPayload = {
         id: user.id,

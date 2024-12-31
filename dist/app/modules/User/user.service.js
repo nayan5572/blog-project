@@ -13,11 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-const http_status_1 = __importDefault(require("http-status"));
-const App__Error_1 = __importDefault(require("../../Error/App__Error"));
 const user_model_1 = require("./user.model");
+const App__Error_1 = __importDefault(require("../../error/App__Error"));
+const http_status_1 = __importDefault(require("http-status"));
 const createUserService = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     // Check if user already exists
     const isUserExist = yield user_model_1.User.findOne({ email: payload.email });

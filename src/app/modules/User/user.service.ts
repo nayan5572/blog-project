@@ -1,9 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import httpStatus from "http-status";
-import App__error from "../../Error/App__Error";
 import { Tuser } from "./user.interface";
 import { User } from "./user.model";
+import App__error from "../../error/App__Error";
+import httpStatus from "http-status";
 
 const createUserService = async (payload: Tuser) => {
   // Check if user already exists

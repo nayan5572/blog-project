@@ -34,7 +34,7 @@ import { Request, Response, NextFunction } from "express";
 import CatchAsync from "../../utils/CatchAsync";
 import sendResponce from "../../utils/SendResponce";
 import { authService } from "./auth.service";
-import { HttpStatus } from "http-status-ts";
+import httpStatus from "http-status";
 import config from "../../config";
 
 const loginController = CatchAsync(
@@ -49,7 +49,7 @@ const loginController = CatchAsync(
     });
 
     sendResponce(res, {
-      statusCode: HttpStatus.OK,
+      statusCode: httpStatus.OK,
       success: true,
       message: "Login successful",
       data: { token: accessToken },

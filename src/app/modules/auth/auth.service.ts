@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { HttpStatus } from "http-status-ts";
+import httpStatus from "http-status";
 import App__error from "../../error/App__Error";
 import { User } from "../User/user.model";
 import { Tauth } from "./auth.interface";
@@ -11,13 +11,13 @@ const loginService = async (payload: Tauth) => {
 
   // Check if the user exists
   if (!user) {
-    throw new App__error(HttpStatus.UNAUTHORIZED, "not found.");
+    throw new App__error(httpStatus.UNAUTHORIZED, "not found.");
   }
 
   // Check if the user account is blocked
   if (user.isBlocked === true) {
     throw new App__error(
-      HttpStatus.FORBIDDEN,
+      httpStatus.FORBIDDEN,
       "This user account is currently blocked!"
     );
   }
@@ -26,7 +26,7 @@ const loginService = async (payload: Tauth) => {
   const userHashPassword = user.password;
   const isPasswordValid = await bcrypt.compare(plainPassword, userHashPassword);
   if (!isPasswordValid) {
-    throw new App__error(HttpStatus.UNAUTHORIZED, "Invalid credentials.");
+    throw new App__error(httpStatus.UNAUTHORIZED, "Invalid credentials.");
   }
 
   const jwtPayload = {

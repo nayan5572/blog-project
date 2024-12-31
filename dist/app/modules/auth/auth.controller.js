@@ -25,7 +25,7 @@ exports.AuthController = void 0;
 const CatchAsync_1 = __importDefault(require("../../utils/CatchAsync"));
 const SendResponce_1 = __importDefault(require("../../utils/SendResponce"));
 const auth_service_1 = require("./auth.service");
-const http_status_ts_1 = require("http-status-ts");
+const http_status_1 = __importDefault(require("http-status"));
 const config_1 = __importDefault(require("../../config"));
 const loginController = (0, CatchAsync_1.default)(
 // eslint-disable-next-line no-unused-vars
@@ -37,7 +37,7 @@ const loginController = (0, CatchAsync_1.default)(
         httpOnly: true,
     });
     (0, SendResponce_1.default)(res, {
-        statusCode: http_status_ts_1.HttpStatus.OK,
+        statusCode: http_status_1.default.OK,
         success: true,
         message: "Login successful",
         data: { token: accessToken },

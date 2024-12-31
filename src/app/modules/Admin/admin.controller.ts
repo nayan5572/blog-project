@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { HttpStatus } from "http-status-ts";
+import httpStatus from "http-status";
 import CatchAsync from "../../utils/CatchAsync";
 import sendResponce from "../../utils/SendResponce";
 import { AdminService } from "./admin.service";
@@ -8,7 +8,7 @@ import { AdminService } from "./admin.service";
 const blockUserController = CatchAsync(async (req, res, next) => {
   const result = await AdminService.blockUserService(req.params.id);
   sendResponce(res, {
-    statusCode: HttpStatus.OK,
+    statusCode: httpStatus.OK,
     success: true,
     message: "User blocked successfully",
     data: result,
@@ -18,7 +18,7 @@ const blockUserController = CatchAsync(async (req, res, next) => {
 const deleteUserBlogController = CatchAsync(async (req, res, next) => {
   const result = await AdminService.deleteUserBlogService(req.params.id);
   sendResponce(res, {
-    statusCode: HttpStatus.OK,
+    statusCode: httpStatus.OK,
     success: true,
     message: "Blog deleted successfully",
     data: result,

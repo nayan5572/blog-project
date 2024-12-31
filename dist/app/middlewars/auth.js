@@ -12,27 +12,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = __importDefault(require("../config"));
 const CatchAsync_1 = __importDefault(require("../utils/CatchAsync"));
 const App__Error_1 = __importDefault(require("../error/App__Error"));
-const http_status_ts_1 = require("http-status-ts");
+const http_status_1 = __importDefault(require("http-status"));
+// eslint-disable-next-line no-unused-vars
 const auth = (...requiredRole) => {
     return (0, CatchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         const Bearertoken = req.headers.authorization;
-        console.log("Bearer Token", Bearertoken);
         if (!Bearertoken) {
-            throw new App__Error_1.default(http_status_ts_1.HttpStatus.UNAUTHORIZED, "unAuthorized");
+            throw new App__Error_1.default(http_status_1.default.UNAUTHORIZED, "Unauthorized");
         }
         const token = Bearertoken.split(" ")[1];
         jsonwebtoken_1.default.verify(token, config_1.default.jwt__access__token__secret, function (err, decoded) {
-            if (err) {
-                throw new App__Error_1.default(http_status_ts_1.HttpStatus.UNAUTHORIZED, "authorized");
-            }
+            // if (err) {
+            //   throw new App__error(HttpStatus.UNAUTHORIZED, "Authorized");
+            // }
             const decodedValue = decoded === null || decoded === void 0 ? void 0 : decoded.role;
-            if (requiredRole && !requiredRole.includes(decodedValue)) {
-                throw new App__Error_1.default(http_status_ts_1.HttpStatus.UNAUTHORIZED, "Unauthorized");
-            }
+            console.log("decoded Value", decodedValue);
+            // if (requiredRole && !requiredRole.includes(decodedValue)) {
+            //   throw new App__error(HttpStatus.UNAUTHORIZED, "Unauthorized");
+            // }
             req.user = decoded;
             next();
         });
