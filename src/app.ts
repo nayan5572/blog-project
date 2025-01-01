@@ -14,7 +14,7 @@ app.use(cors());
 app.use("/api", router);
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("server is running ...!");
+  res.send("Blog server is running ...!");
 });
 
 app.use(globalErrorHandler);
