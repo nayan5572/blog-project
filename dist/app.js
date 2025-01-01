@@ -15,7 +15,7 @@ app.use((0, cors_1.default)());
 // router
 app.use("/api", routes_1.default);
 app.get("/", (req, res) => {
-    res.send("server is running ...!");
+    res.send("Blog server is running ...!");
 });
 app.use(global__Error_1.default);
 app.use(not__found_1.default);

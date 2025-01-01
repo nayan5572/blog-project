@@ -7,7 +7,7 @@ import { blogService } from "./blog.service";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const createBlogController = CatchAsync(async (req, res, next) => {
   const user = req.user;
-  console.log(user);
+  console.log("Create Blog", user);
   const result = await blogService.createBlogService(req.body, req?.user?.id);
   sendResponce(res, {
     statusCode: httpStatus.CREATED,

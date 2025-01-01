@@ -10,5 +10,5 @@
 
 ## Admin Panel
 
-**Email**: `nayan@gmail.com`
-**Password**: `123456`
+**Email**: "nayan@gmail.com"
+**Password**: "123456"

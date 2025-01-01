@@ -20,7 +20,10 @@ const SendResponce_1 = __importDefault(require("../../utils/SendResponce"));
 const blog_service_1 = require("./blog.service");
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const createBlogController = (0, CatchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield blog_service_1.blogService.createBlogService(req.body);
+    var _a;
+    const user = req.user;
+    console.log("Create Blog", user);
+    const result = yield blog_service_1.blogService.createBlogService(req.body, (_a = req === null || req === void 0 ? void 0 : req.user) === null || _a === void 0 ? void 0 : _a.id);
     (0, SendResponce_1.default)(res, {
         statusCode: http_status_1.default.CREATED,
         success: true,
@@ -40,9 +43,8 @@ const getAllBlogController = (0, CatchAsync_1.default)((req, res, next) => __awa
 }));
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const updateBlogController = (0, CatchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const id = req.params.id;
     const payload = req.body;
-    const result = yield blog_service_1.blogService.updateBlogService(id, payload);
+    const result = yield blog_service_1.blogService.updateBlogService(payload, req === null || req === void 0 ? void 0 : req.params.id);
     (0, SendResponce_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,

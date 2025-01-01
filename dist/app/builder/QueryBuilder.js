@@ -7,20 +7,31 @@ class QueryBuilder {
     }
     search(searchableFields) {
         var _a;
-        const searchTerm = (_a = this === null || this === void 0 ? void 0 : this.query) === null || _a === void 0 ? void 0 : _a.searchTerm;
-        if (searchTerm) {
-            this.modelQuery = this.modelQuery.find({
+        const search = (_a = this === null || this === void 0 ? void 0 : this.query) === null || _a === void 0 ? void 0 : _a.search;
+        if (search) {
+            const searchCondition = {
                 $or: searchableFields.map((field) => ({
-                    [field]: { $regex: searchTerm, $options: "i" },
+                    [field]: { $regex: search, $options: "i" },
                 })),
-            });
+            };
+            this.modelQuery = this.modelQuery.find(searchCondition);
         }
         return this;
     }
     filter() {
-        const queryObj = Object.assign({}, this.query); // copy
-        // Filtering
-        const excludeFields = ["searchTerm", "sort", "limit", "page", "fields"];
+        const queryObj = Object.assign({}, this.query);
+        const excludeFields = [
+            "search",
+            "sortBy",
+            "sortOrder",
+            "limit",
+            "page",
+            "fields",
+        ];
+        if (queryObj.filter) {
+            queryObj.author = queryObj.filter;
+        }
+        delete queryObj.filter;
         excludeFields.forEach((el) => delete queryObj[el]);
         this.modelQuery = this.modelQuery.find(queryObj);
         return this;

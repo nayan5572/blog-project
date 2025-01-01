@@ -1,9 +1,9 @@
 import httpStatus from "http-status";
-import QueryBuilder from "../../builder/QueryBuilder";
 import { Tblog } from "./blog.interface";
 import { User } from "../User/user.model";
 import App__error from "../../error/App__Error";
 import { Blog } from "./blog.model";
+import QueryBuilder from "../../builder/QueryBuilder";
 
 const createBlogService = async (payload: Tblog, authorId: string) => {
   console.log("authorId", authorId);
@@ -38,7 +38,7 @@ const getAllBlogService = async (query: Record<string, unknown>) => {
 
 const updateBlogService = async (payload: Partial<Tblog>, id: string) => {
   const result = await Blog.findByIdAndUpdate(id, payload, { new: true });
-  console.log(result);
+  console.log("Update Blog", result);
   return result;
 };
 

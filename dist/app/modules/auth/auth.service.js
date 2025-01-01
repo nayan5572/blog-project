@@ -13,17 +13,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authService = void 0;
+const http_status_1 = __importDefault(require("http-status"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const http_status_1 = __importDefault(require("http-status"));
-const App__Error_1 = __importDefault(require("../../error/App__Error"));
-const user_model_1 = require("../User/user.model");
 const config_1 = __importDefault(require("../../config"));
+const user_model_1 = require("../User/user.model");
+const App__Error_1 = __importDefault(require("../../error/App__Error"));
 const loginService = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield user_model_1.User.findOne({ email: payload.email });
     // Check if the user exists
     if (!user) {
-        throw new App__Error_1.default(http_status_1.default.UNAUTHORIZED, "not found.");
+        throw new App__Error_1.default(http_status_1.default.NOT_FOUND, "not found.");
     }
     // Check if the user account is blocked
     if (user.isBlocked === true) {
@@ -42,9 +42,7 @@ const loginService = (payload) => __awaiter(void 0, void 0, void 0, function* ()
         email: user.email,
     };
     // Generate tokens
-    const accessToken = jsonwebtoken_1.default.sign(jwtPayload, config_1.default.jwt__access__token__secret, {
-        expiresIn: "10d",
-    });
+    const accessToken = jsonwebtoken_1.default.sign(jwtPayload, config_1.default.jwt__access__token__secret, { expiresIn: "10d" });
     const refreshToken = jsonwebtoken_1.default.sign(jwtPayload, config_1.default.jwt__refresh__token__secret, { expiresIn: "20d" });
     // Return tokens
     return {

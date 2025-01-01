@@ -12,32 +12,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/* eslint-disable @typescript-eslint/no-unused-vars */
+const CatchAsync_1 = __importDefault(require("../utils/CatchAsync"));
+const http_status_1 = __importDefault(require("http-status"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = __importDefault(require("../config"));
-const CatchAsync_1 = __importDefault(require("../utils/CatchAsync"));
 const App__Error_1 = __importDefault(require("../error/App__Error"));
-const http_status_1 = __importDefault(require("http-status"));
-// eslint-disable-next-line no-unused-vars
-const auth = (...requiredRole) => {
+const user_model_1 = require("../modules/User/user.model");
+const auth = (...requiredRoles) => {
     return (0, CatchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        const Bearertoken = req.headers.authorization;
-        if (!Bearertoken) {
-            throw new App__Error_1.default(http_status_1.default.UNAUTHORIZED, "Unauthorized");
+        const token = req.headers.authorization;
+        if (!token) {
+            throw new App__Error_1.default(http_status_1.default.UNAUTHORIZED, "You are not Authorized!");
         }
-        const token = Bearertoken.split(" ")[1];
-        jsonwebtoken_1.default.verify(token, config_1.default.jwt__access__token__secret, function (err, decoded) {
-            // if (err) {
-            //   throw new App__error(HttpStatus.UNAUTHORIZED, "Authorized");
-            // }
-            const decodedValue = decoded === null || decoded === void 0 ? void 0 : decoded.role;
-            console.log("decoded Value", decodedValue);
-            // if (requiredRole && !requiredRole.includes(decodedValue)) {
-            //   throw new App__error(HttpStatus.UNAUTHORIZED, "Unauthorized");
-            // }
-            req.user = decoded;
-            next();
-        });
+        const Bearertokens = token.split(" ")[1];
+        // console.log("Bearer Token", Bearertokens);
+        const decoded = jsonwebtoken_1.default.verify(Bearertokens, config_1.default.jwt__access__token__secret);
+        console.log("JWT ACCESS", decoded);
+        const { role, id } = decoded;
+        // Check if user exists
+        const user = yield user_model_1.User.findById(id);
+        if (!user) {
+            throw new App__Error_1.default(http_status_1.default.NOT_FOUND, "User Not Found.");
+        }
+        if (requiredRoles && !requiredRoles.includes(role)) {
+            throw new App__Error_1.default(http_status_1.default.UNAUTHORIZED, "You Are Not Authorized!");
+        }
+        req.user = decoded;
+        next();
     }));
 };
 exports.default = auth;
