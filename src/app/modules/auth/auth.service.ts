@@ -1,17 +1,17 @@
+import httpStatus from "http-status";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import httpStatus from "http-status";
-import App__error from "../../error/App__Error";
-import { User } from "../User/user.model";
-import { Tauth } from "./auth.interface";
 import config from "../../config";
+import { Tauth } from "./auth.interface";
+import { User } from "../User/user.model";
+import App__error from "../../error/App__Error";
 
 const loginService = async (payload: Tauth) => {
   const user = await User.findOne({ email: payload.email });
 
   // Check if the user exists
   if (!user) {
-    throw new App__error(httpStatus.UNAUTHORIZED, "not found.");
+    throw new App__error(httpStatus.NOT_FOUND, "not found.");
   }
 
   // Check if the user account is blocked
@@ -40,9 +40,7 @@ const loginService = async (payload: Tauth) => {
   const accessToken = jwt.sign(
     jwtPayload,
     config.jwt__access__token__secret as string,
-    {
-      expiresIn: "10d",
-    }
+    { expiresIn: "10d" }
   );
   const refreshToken = jwt.sign(
     jwtPayload,
