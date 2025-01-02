@@ -49,25 +49,23 @@ Live Link: <a href="https://blog-project-gamma-amber.vercel.app/" target="_blank
 
 <h3>User Model</h3>
 <pre>
-{
-  name: string; // Full name of the user
-  email: string; // User email address
-  password: string; // Hashed password
-  role: "admin" | "user"; // User role (default: "user")
-  isBlocked: boolean; // Flag to indicate if user is blocked (default: false)
-  createdAt: Date; // Timestamp when user was created
-  updatedAt: Date; // Timestamp of the last user update
-}
+
+name: string;
+email: string;
+password: string;
+role: "admin" | "user"; // User role (default: "user")
+isBlocked: boolean; // Flag to indicate if user is blocked (default: false)
+createdAt: Date;
+updatedAt: Date;
+
 </pre>
 
 <h3>Blog Model</h3>
 <pre>
-{
-  title: string; // Blog post title
-  content: string; // Main content of the blog
-  author: ObjectId; // Reference to the User model
+  title: string; 
+  content: string; 
+  author: ObjectId; 
   isPublished: boolean; // Publication status (default: true)
-  createdAt: Date; // Timestamp when blog was created
-  updatedAt: Date; // Timestamp of the last blog update
-}
+  createdAt: Date; 
+  updatedAt: Date; 
 </pre>
