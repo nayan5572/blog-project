@@ -15,7 +15,6 @@ const auth = (...requiredRoles: ROLE__TYPE[]) => {
       throw new App__error(httpStatus.UNAUTHORIZED, "You are not Authorized!");
     }
     const Bearertokens = token.split(" ")[1];
-    // console.log("Bearer Token", Bearertokens);
     const decoded = jwt.verify(
       Bearertokens,
       config.jwt__access__token__secret as string
