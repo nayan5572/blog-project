@@ -4,7 +4,7 @@
 
 <h1>Live Demo</h1>
 
-Live Link: <a href="https://blog-project-gamma-amber.vercel.app/">Blog Project Link</a>
+Live Link: <a href="https://blog-project-gamma-amber.vercel.app/" target="_blank">Blog Project Link</a>
 
 <!-- **Live Link**: [Blog Project Link] (https://blog-project-gamma-amber.vercel.app/) -->
 
@@ -12,11 +12,11 @@ Live Link: <a href="https://blog-project-gamma-amber.vercel.app/">Blog Project L
 
 <!-- **GitHub Repository**: [Blog GitHub Assignment Link] (https://github.com/nayan5572/blog-project) -->
 
-**GitHub Repository**: <a href="https://github.com/nayan5572/blog-project">Blog GitHub Assignment Link</a>
+**GitHub Repository**: <a href="https://github.com/nayan5572/blog-project" target="_blank">Blog GitHub Assignment Link</a>
 
 <h2>Admin Panel</h2>
-**Email**: <p>nayan@gmail.com</p>
-**Password**: <p>123456</p>
+<p><span>Email:</span> nayan@gmail.com</p>
+<p><span>Password:</span> 123456</p>
 
 <!-- **Email**: "nayan@gmail.com"
 **Password**: "123456" -->
