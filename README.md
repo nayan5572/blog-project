@@ -10,6 +10,8 @@ Live Link: <a href="https://blog-project-gamma-amber.vercel.app/" target="_blank
 
 **GitHub Repository**: <a href="https://github.com/nayan5572/blog-project" target="_blank">Blog GitHub Assignment Link</a>
 
+**Assignment-3 Video Link**: <a href="https://drive.google.com/file/d/1zAb3MMeTFBdX7WrF0hp9dcxo5hRCcQ4i/view?usp=sharing" target="_blank">Assignment-3 Video Link</a>
+
 <h2>Admin Panel</h2>
 <p><span>Email:</span> nayan@gmail.com</p>
 <p><span>Password:</span> 123456</p>
